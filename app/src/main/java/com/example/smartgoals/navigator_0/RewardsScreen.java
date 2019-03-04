@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,11 +24,51 @@ public class RewardsScreen extends Activity implements View.OnClickListener  {
     long parentid=0;
     TextView txtView  ;
     Cursor parentCursor;
+    BottomNavigationView bottomNavigationView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rewardsscreen);
+
+        bottomNavigationView = findViewById(R.id.navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener
+                (new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.create_new_goal_button:
+                                //ONLY DISPLAY THIS IF NO GOAL
+
+                                // Toast.makeText(getApplicationContext(),"Hello New Goal!",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), DataEntryScreen.class);
+                                startActivity(intent);
+                                // startActivity(new Intent("com.example.smartgoals.navigator_0.DataEntryScreen"));
+                                break;
+                            case R.id.update_goal_button:
+                                Intent intent1 = new Intent(getApplicationContext(), DataEntryScreen.class);
+                                startActivity(intent1);
+
+                                //startActivity(new Intent("com.example.smartgoals.navigator_0.DataEntryScreen"));
+                                break;
+                            case R.id.rewards_button:
+
+                                Intent intent2 = new Intent(getApplicationContext(), RewardsScreen.class);
+                                startActivity(intent2);
+                                //startActivity(new Intent("com.example.smartgoals.navigator_0.RewardsScreen"));
+                                break;
+
+                            case R.id.navigation_dashboard:
+                                Intent intent3 = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent3);
+                        }
+                        return true;
+                    }
+                });
+
+        // bottomNavigationView.getMenu().removeItem(R.id.update_goal_button);
+        bottomNavigationView.getMenu().removeItem(R.id.rewards_button);
+        //bottomNavigationView.getMenu().removeItem(R.id.navigation_dashboard); //not on homescreen ui
 
         String destPath = "/data/data/" + getPackageName() +   "/databases";
         File f = new File(destPath);

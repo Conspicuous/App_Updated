@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="@color/colorPrimaryDark"
     tools:context=".MainActivity">
 
     <!--<android.support.v7.widget.Toolbar-->
@@ -32,62 +32,74 @@
 
     <!--to do: TOP navigation-icon with smart goals logo on the right, progress bars, sql database temporary holder-->
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="367dp"
+        android:layout_width="386dp"
+        android:layout_height="338dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="44dp"
-        android:layout_marginLeft="10dp"
+        android:background="@drawable/pyramid_chart"
+        android:backgroundTintMode="src_in"
+        android:clipToPadding="false"
+        android:gravity="left|center_vertical"
+        app:barrierAllowsGoneWidgets="false"
+        app:barrierDirection="left"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintVertical_bias="0.305">
 
         <FrameLayout
-            android:id="@+id/frameLayout2"
-            android:layout_width="296dp"
+            android:id="@+id/Goal_Progress_Container"
+            android:layout_width="295dp"
 
-            android:layout_height="120dp"
+            android:layout_height="137dp"
+            android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="27dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/frameLayout3"
+            android:background="#74505d5d"
+            android:backgroundTintMode="src_over"
+            app:layout_constraintBottom_toTopOf="@+id/Subtask_Progress_Container"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <fragment
-                android:id="@+id/ProgressBarFragment"
-                android:name="com.example.smartgoals.navigator_0.GoalProgressBarFragment"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp" />
+            <!--<fragment-->
+            <!--android:id="@+id/Goal_Progress_Fragment"-->
+            <!--android:name="com.example.smartgoals.navigator_0.GoalProgressBarFragment"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="133dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:layout_marginBottom="8dp" />-->
         </FrameLayout>
 
         <FrameLayout
 
-            android:id="@+id/frameLayout3"
+            android:id="@+id/Subtask_Progress_Container"
             android:layout_width="296dp"
             android:layout_height="120dp"
             android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="169dp"
+            android:layout_marginTop="197dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/colorPrimaryDark"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="117dp">
 
-            <fragment
-                android:id="@+id/SubtasksCompleteFragment"
-                android:name="com.example.smartgoals.navigator_0.SubtaskProgressBarFragment"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp" />
+            <!--<fragment-->
+            <!--android:id="@+id/SubtasksCompleteFragment"-->
+            <!--android:name="com.example.smartgoals.navigator_0.SubtaskProgressBarFragment"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="121dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:layout_marginBottom="8dp" />-->
         </FrameLayout>
     </RelativeLayout>
 
@@ -95,7 +107,7 @@
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="51dp"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

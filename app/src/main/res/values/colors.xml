@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#eebd18</color>
-    <color name="colorPrimaryDark">#e94b4d4d</color>
+    <color name="colorPrimaryDark">#a24b5e5e</color>
     <color name="colorAccent">#f2020a</color>
     <color name="colorBackground">#a1a09f</color>
 
@@ -11,5 +11,6 @@
     <color name="buttonBackgroundC">#e22b2a</color>
 
     <color name="colorGoalProgressBar">#e71ed60e</color>
+    <color name="Color_PrimaryDark_MainScreenBackground">#41286969</color>
 
 </resources>

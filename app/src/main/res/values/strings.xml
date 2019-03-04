@@ -4,14 +4,19 @@
     <string name="CreateNewGoalActivityButton">Create New Goal</string>
     <string name="UpdateGoalActivityButton">Update Goal</string>
     <string name="DeleteGoalButton">Delete Goal</string>
+    <string name="DashboardButton">Dashboard</string>
     <string name="UsersName">%s</string>
     <string name="RewardsActivityButton">Badges</string>
     <string name="CompanyName">SMART Goals</string>
     <string name="Goal_Progress_Text">Goal Progress</string>
     <string name="Subtask_Progess_Text">Subtask Progress</string>
-    <string name="Percent_Complete">%d Complete!</string>
+    <string name="Percent_Complete">%d</string>
+    <string name="Complete">Complete!</string>
     <string name="Completion_Date_TextViewValue">Completion Date</string>
+    <string name="percent_sign">&#x0025;</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="subtasks_complete_fragment_text">of %s subtasks complete!</string>
+    <string name="double_holder">%d</string>
 </resources>

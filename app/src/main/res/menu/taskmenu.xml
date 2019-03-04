@@ -16,6 +16,11 @@
         android:icon="@drawable/badge_button_icon"
         android:title="@string/RewardsActivityButton" />
 
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/pyramid_greyscale"
+        android:title="@string/DashboardButton" />
+
 
     <!--<item-->
     <!--android:id="@+id/delete_goal_button"-->

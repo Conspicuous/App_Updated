@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -12,7 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.smartgoals.navigator_0.db.*;
+import com.example.smartgoals.navigator_0.db.TaskDBAdapter;
 import com.example.smartgoals.navigator_0.util.HelperUtil;
 
 import java.io.File;
@@ -26,6 +29,7 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
     long parentid=0;
     TextView txtView  ;
     Cursor parentCursor;
+    BottomNavigationView bottomNavigationView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,8 +45,47 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
             btnDelete = (Button)findViewById(R.id.btnDelete);
             btnDelete.setOnClickListener(  this);
             btn_rewards = (Button)findViewById(R.id.btn_rewards );
-            btn_rewards .setOnClickListener(  this);
+            btn_rewards.setOnClickListener(  this);
+            bottomNavigationView = findViewById(R.id.navigation);
+            bottomNavigationView.setOnClickListener(this);
+            bottomNavigationView.setOnNavigationItemSelectedListener
+                    (new BottomNavigationView.OnNavigationItemSelectedListener() {
+                        @Override
+                        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.create_new_goal_button:
+                                    //ONLY DISPLAY THIS IF NO GOAL
 
+                                    // Toast.makeText(getApplicationContext(),"Hello New Goal!",Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), DataEntryScreen.class);
+                                    startActivity(intent);
+                                    // startActivity(new Intent("com.example.smartgoals.navigator_0.DataEntryScreen"));
+                                    break;
+                                case R.id.update_goal_button:
+                                    Intent intent1 = new Intent(getApplicationContext(), DataEntryScreen.class);
+                                    startActivity(intent1);
+
+                                    //startActivity(new Intent("com.example.smartgoals.navigator_0.DataEntryScreen"));
+                                    break;
+                                case R.id.rewards_button:
+
+                                    Intent intent2 = new Intent(getApplicationContext(), RewardsScreen.class);
+                                    startActivity(intent2);
+                                    //startActivity(new Intent("com.example.smartgoals.navigator_0.RewardsScreen"));
+                                    break;
+
+                                case R.id.navigation_dashboard:
+                                    Intent intent3 = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(intent3);
+                            }
+                            return true;
+                        }
+                    });
+
+
+            bottomNavigationView.getMenu().removeItem(R.id.update_goal_button);
+            bottomNavigationView.getMenu().removeItem(R.id.rewards_button);
+            bottomNavigationView.getMenu().removeItem(R.id.create_new_goal_button);
             txtView = (TextView)findViewById(R.id.txtView);
             String destPath = "/data/data/" + getPackageName() +   "/databases";
             File f = new File(destPath);
@@ -149,9 +192,9 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
                     for (int i=1;  i <=5; i++) {
                         save(  i);
                     }
-                    if (db.getFinishedSubtaskCount(parentid) == db.getTotalSubtaskCount(parentid))
+                   if (db.getFinishedSubtaskCount(parentid) == db.getTotalSubtaskCount(parentid))
                     {
-                        alert("Congratulations on finishing all tasks!");
+                       // alert("Congratulations on finishing all tasks!");
                         db.updateParentCompleted(parentid,1);
                     }
                     db.close();
@@ -160,6 +203,7 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
                     db.open();
                     db.deleteAllTasks();
                     db.close();
+                    showDataEntry(view);
                     break;
                 case R.id.create_new_goal_button:
                     showDataEntry(view);
@@ -258,7 +302,7 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
 
 
                      alert("saved");
-                if ( HelperUtil.getIntValue(cb_task) == 0 )
+                if ( HelperUtil.getIntValue(cb_task) == 1 )
                     alert("Congratulations on completing subtask: " + txt_task.getText());
         }
         catch(Exception e)
