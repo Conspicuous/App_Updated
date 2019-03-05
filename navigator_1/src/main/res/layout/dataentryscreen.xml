@@ -2,7 +2,6 @@
 
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -45,13 +44,11 @@
             android:layout_height="wrap_content"
             android:layout_column="3"
             android:width="400px"
-            android:contentDescription="MM-DD-YY"
             android:cursorVisible="false"
             android:hint="@string/Completion_Date_TextViewValue"
             android:inputType="date"
             android:focusable="false"
-            android:text=""
-            tools:text="@tools:sample/date/ddmmyy" />
+            android:text="" />
 
         <TextView
             android:id="@+id/id_task0"

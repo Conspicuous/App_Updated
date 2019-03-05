@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.support.v4.app.Fragment;
+
 import com.example.smartgoals.navigator_0.db.TaskDBAdapter;
 import com.example.smartgoals.navigator_0.util.HelperUtil;
 
@@ -121,8 +121,11 @@ public class MainActivity extends AppCompatActivity {
             long TotalSubtasks = SubtaskCountResults[0];
             long CompletedSubtasks = SubtaskCountResults[1];
 
+            String dates[] = getDateFromDatabase();
+            String e_date = dates[0];
+            String s_date = dates[1];
 
-            displayGoalProgressFragment(); //Calls Goal Progress Fragment Init Method
+            displayGoalProgressFragment(e_date, s_date); //Calls Goal Progress Fragment Init Method
             displaySubtaskProgressFragment((int) CompletedSubtasks, (int) TotalSubtasks); //Pass subtasks and completed to frag
 
         }
@@ -188,10 +191,50 @@ public class MainActivity extends AppCompatActivity {
         return Subtasks;
     }
 
+    public String[] getDateFromDatabase() {
+        String[] date = new String[2];
+        TaskDBAdapter db = new TaskDBAdapter(this);
+        try {
+            String destPath = "/data/data/" + getPackageName() + "/databases";
+            File f = new File(destPath);
+            if (!f.exists()) {
+                f.mkdirs();
+                f.createNewFile();
+                HelperUtil.CopyDB(getBaseContext().getAssets().open("TaskDB.db"), new FileOutputStream(destPath + "/TaskDB.db"));
+            }
+            Log.d("InGetDate", "Here");
+
+            db.openRead();
+
+
+//
+            parentCursor = db.getParentTask();
+            long parentID = 0;
+            Log.d("InGetDate", "Here");
+
+            if (parentCursor.moveToFirst())
+                parentID = parentCursor.getInt(0);
+            Log.d("InGetDate", "Here");
+            date[0] = db.getEndDate(parentID);
+            date[1] = db.getStartDate(parentID);
+//            Log.d("date0",date[0]);
+//            Log.d("date1",date[1]);
+
+
+        } catch (Exception e) {
+            Log.d("dataentry", e.getMessage());
+            e.printStackTrace();
+            Log.d("helloo", "help");
+            db.close();
+        }
+        return date;
+    }
+
+
 // Generate Fragments
 
-    public void displayGoalProgressFragment() {
-        GoalProgressBarFragment goalProgressBarFragment = GoalProgressBarFragment.newInstance(dummy_progress);
+    public void displayGoalProgressFragment(String EndDate, String StartDate) {
+        GoalProgressBarFragment goalProgressBarFragment = GoalProgressBarFragment.newInstance(EndDate, StartDate);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();

@@ -9,12 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.smartgoals.navigator_0.db.TaskDBAdapter;
-
 public class SubtaskProgressBarFragment extends Fragment {
 
 
-    TaskDBAdapter db;
     private ProgressBar progressBar;
     private double TEST_SUBTASKS_COMPLETE = 4;
     private double TESTS_SUBSTASKS_INCOMPLETE = 1;

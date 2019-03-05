@@ -235,5 +235,35 @@ public class TaskDBAdapter {
         return count;
     }
 
+    //Casey 35
+    public String getEndDate(long id) throws SQLException {
+        Cursor mCursor = db.rawQuery("select * from task where   parentid=999;", null);
+
+
+        String Date = "";
+        if (mCursor != null) {
+            Date = mCursor.getString(mCursor.getColumnIndex("expected_enddate"));
+
+            mCursor.close();
+            Log.d("DATEINACCESSE", Date);
+        }
+
+        return Date;
+    }
+
+    public String getStartDate(long id) throws SQLException {
+        Cursor mCursor = db.rawQuery("select * from task where id =" + id + ";", null);
+
+
+        String Date = mCursor.getString(mCursor.getColumnIndex("completed_date"));
+        Log.d("DATEINACCESS", Date);
+        // do what ever you want here
+        mCursor.close();
+
+
+        return Date;
+    }
+
+
 }
 

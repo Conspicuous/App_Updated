@@ -15,14 +15,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.smartgoals.navigator_0.EditTextDatePicker.*; //FOR Edit Text Date Pick
-//import com.example.smartgoals.navigator_0.db.CalendarEntries; //MAY NEEED TO REMOVE
-
 import com.example.smartgoals.navigator_0.db.TaskDBAdapter;
 import com.example.smartgoals.navigator_0.util.HelperUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
+
+//import com.example.smartgoals.navigator_0.db.CalendarEntries; //MAY NEEED TO REMOVE
 
 public class DataEntryScreen extends  Activity implements View.OnClickListener {
     Button btnSave;
@@ -33,7 +32,10 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
     TextView txtView  ;
     Cursor parentCursor;
     BottomNavigationView bottomNavigationView ;
+
     EditTextDatePicker datePicker; //CASEY Added 3/5
+    String currentDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -49,8 +51,10 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
             btnDelete.setOnClickListener(  this);
             btn_rewards = (Button)findViewById(R.id.btn_rewards );
             btn_rewards.setOnClickListener(  this);
-            datePicker = new EditTextDatePicker(this, R.id.dte_task0); //CASEY Added 3/4--> Enables Calendar Dialog Fragment onClick.
 
+
+            datePicker = new EditTextDatePicker(this, R.id.dte_task0); //CASEY Added 3/4--> Enables Calendar Dialog Fragment onClick.
+//            currentDate=datePicker.getCurrentDate();
             bottomNavigationView = findViewById(R.id.navigation);
             bottomNavigationView.setOnClickListener(this);
             bottomNavigationView.setOnNavigationItemSelectedListener
@@ -83,13 +87,13 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
                         }
                     });
 
-//REMOVE UN-NEEDED ITEMS
+//REMOVE UN-NEEDED ITEMS (Casey Add, 3/3)
             bottomNavigationView.getMenu().removeItem(R.id.update_goal_button);
             bottomNavigationView.getMenu().removeItem(R.id.rewards_button);
             bottomNavigationView.getMenu().removeItem(R.id.create_new_goal_button);
             txtView = (TextView)findViewById(R.id.txtView);
 
-            //RESUME EXECUTION
+//ANITA'S WORK CONTINUES NOW...
             String destPath = "/data/data/" + getPackageName() +   "/databases";
             File f = new File(destPath);
             if (!f.exists())
@@ -124,7 +128,7 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
         }
         catch (Exception e)
         {
-            Log.d("dataentry",e.getMessage());
+            Log.d("dataentryA", e.getMessage());
             e.printStackTrace();
         }
      }
@@ -143,17 +147,21 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
 
             txt_task = (EditText)findViewById( getResources().getIdentifier(  "txt_task"+i, "id", getPackageName())  );
 
+//CASEY ADDED for DATE
+            dte_task = (EditText) findViewById(getResources().getIdentifier("dte_task" + i, "id", getPackageName())); // CASEY Added 35
+//ANITA
             id_task = (TextView)findViewById( getResources().getIdentifier(  "id_task"+i, "id", getPackageName())  );
             taskname = c.getString(c.getColumnIndex("taskname"))  ; //c.getString(2)
 
             txt_task.setText(taskname);
             id_task.setText(Integer.toString(c.getInt(0)));
-
+//CASEY ADDED for DATE
+            dte_task.setText(c.getString(c.getColumnIndex("expected_enddate")));//CASEY Added 3/5
 
             parentid=c.getInt(0);
         }
         catch(Exception e) {
-            Log.d("dataentry",e.getMessage());
+            Log.d("dataentryB", e.getMessage());
             e.printStackTrace();
         }
 
@@ -162,7 +170,7 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
         try
         {
             EditText txt_task;
-            EditText dte_task;
+            //EditText dte_task; --> FUTURE function (adding subtask dates)
             TextView id_task;
             CheckBox cb_task;
             long id=0;
@@ -173,7 +181,7 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
 
 
             txt_task = (EditText)findViewById( getResources().getIdentifier(  "txt_task"+i, "id", getPackageName())  );
-            dte_task = (EditText) findViewById(getResources().getIdentifier("txt_task" + i, "id", getPackageName()));
+            //dte_task = (EditText) findViewById(getResources().getIdentifier("txt_task" + i, "id", getPackageName()));
 
             id_task = (TextView)findViewById( getResources().getIdentifier(  "id_task"+i, "id", getPackageName())  );
             cb_task = (CheckBox)findViewById( getResources().getIdentifier(  "cb_task"+i, "id", getPackageName())  );
@@ -187,11 +195,11 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
                 id_task.setText(Integer.toString(c.getInt(0)));
                 cb_task.setChecked( HelperUtil.getBoolValue(c.getInt(c.getColumnIndex("completed_bool"))) );
                 Log.d("inIF", date);
-                dte_task.setText(date);
+                // dte_task.setText(date);
             }
         }
         catch(Exception e) {
-            Log.d("dataentry",e.getMessage());
+            Log.d("dataentryC", e.getMessage());
             e.printStackTrace();
         }
 
@@ -250,7 +258,7 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
         EditText dte_task; //Casey *addition*, 3/4 --> for GOAL end date --> parent holds the expected end date.
         TextView id_task;
         CheckBox cb_task;
-
+        String currentDate = datePicker.getCurrentDate();
         int i=0;
         long id=0;
 
@@ -261,9 +269,16 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
             cb_task = (CheckBox) findViewById(getResources().getIdentifier("cb_task" + i, "id", getPackageName()));
             dte_task = (EditText) findViewById(getResources().getIdentifier("dte_task" + i, "id", getPackageName())); //CASEY added 3/4-->for GOAL end date
             Log.d("dtetask", dte_task.getText().toString()); //CASEY ADDED 34 debugging
+            // if((HelperUtil.isEmpty(txt_task)
 
-            if (HelperUtil.isEmpty(txt_task))
-                alert("Please complete the parent goal");
+
+            if (HelperUtil.isEmpty(txt_task) || HelperUtil.isEmpty(dte_task))
+                alert("Please complete both the parent goal and the goal end date!");
+
+//            if (!validateFields(txt_task))
+//                alert("Please complete the parent goal!");
+//            if (!validateFields(dte_task))
+//                alert("Please enter goal date!");
             else
             {
                 if (!HelperUtil.isEmpty(id_task))
@@ -273,11 +288,11 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
 
                     if (id == 0)
                 {
-                    id = db.insertTask(999, txt_task.getText().toString(), dte_task.getText().toString(), "", HelperUtil.getIntValue(cb_task));
+                    id = db.insertTask(999, txt_task.getText().toString(), dte_task.getText().toString(), currentDate, HelperUtil.getIntValue(cb_task));
                         id_task.setText( Long.toString( id));
                         parentid = id;
                     } else
-                        db.update(parentid, 999, txt_task.getText().toString(), dte_task.getText().toString(), "", HelperUtil.getIntValue(cb_task));
+                        db.update(parentid, 999, txt_task.getText().toString(), dte_task.getText().toString(), currentDate, HelperUtil.getIntValue(cb_task));
 
 
 
@@ -286,7 +301,7 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
         }
         catch(Exception e)
         {
-            Log.d("dataentry",e.getMessage());
+            Log.d("dataentryC", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -340,7 +355,7 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
         }
         catch(Exception e)
         {
-            Log.d("dataentry",e.getMessage());
+            Log.d("dataentryD", e.getMessage());
             e.printStackTrace();
         }
      }
@@ -370,7 +385,38 @@ public class DataEntryScreen extends  Activity implements View.OnClickListener {
         super.onPause();
      db.close();
     }
+
+
+    //CASEY Added 3/5--> Require validation.//Future Implementation to REQUIRE valid goal and date.
+//    private boolean validateFields(EditText Text) {
+//        int yourDesiredLength = 4; //Don't want user entering NOTHING
+//        if (Text.getText().length() < yourDesiredLength) {
+//            Text.setError("Please Enter Field!");
+//            Log.e("AAAA",Text.getText().toString());
+//
+//            return false;
+//        } else {
+//            Log.e("BBBB",Text.getText().toString());
+//            return true;
+//        }
+//    }
+
+//    private boolean validateFields(EditText Text, EditText Date_Text) {
+//        int yourDesiredLength = 1; //Don't want user entering NOTHING
+//        if (Goal_Text.getText().length() < yourDesiredLength) {
+//            Goal_Text.setError("Please Enter a Main Goal!");
+//            return false;
+//        } else if (Date_Text.getText().length() < yourDesiredLength) {
+//            Date_Text.setError("Please Enter a Date");
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
+
+
 }
+
 
 
 
