@@ -12,7 +12,7 @@
     <string name="Subtask_Progess_Text">Subtask Progress</string>
     <string name="Percent_Complete">%d</string>
     <string name="Complete">Complete!</string>
-    <string name="Completion_Date_TextViewValue">Completion Date</string>
+    <string name="Completion_Date_TextViewValue">Due Date</string>
     <string name="percent_sign">&#x0025;</string>
 
     <!-- TODO: Remove or change this placeholder text -->

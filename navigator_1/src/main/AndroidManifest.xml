@@ -14,7 +14,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance">
 
 
         </activity>
@@ -34,7 +35,8 @@
 
         <activity
             android:label="Data Entry Screen"
-            android:name=".DataEntryScreen" >
+            android:name=".DataEntryScreen"
+            android:launchMode="singleTop">
             <intent-filter >
                 <action android:name="com.scheduler.DataEntryScreen" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -44,7 +46,8 @@
 
         <activity
             android:label="Rewards Screen"
-            android:name=".RewardsScreen" >
+            android:name=".RewardsScreen"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="com.scheduler.RewardsScreen" />
                 <category android:name="android.intent.category.DEFAULT" />

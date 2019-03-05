@@ -22,17 +22,37 @@
     </TableRow>
 
     <TableRow  >
-    <EditText
-        android:id="@+id/txt_task0"
-        android:text=""
-        android:layout_column="2"
-        android:width="400px"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+
+        <EditText
+            android:id="@+id/txt_task0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:width="400px"
+            android:hint="Goal"
+            android:text="" />
 
 
-        <CheckBox android:width="20px"  android:id="@+id/cb_task0" android:enabled="false"  android:layout_column="3" />
+        <CheckBox
+            android:width="20px"
+            android:id="@+id/cb_task0"
+            android:enabled="false"
+            android:layout_column="3" />
+
+        <EditText
+            android:id="@+id/dte_task0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:width="400px"
+            android:contentDescription="MM-DD-YY"
+            android:cursorVisible="false"
+            android:hint="@string/Completion_Date_TextViewValue"
+            android:inputType="date"
+            android:focusable="false"
+            android:text=""
+            tools:text="@tools:sample/date/ddmmyy" />
+
         <TextView
             android:id="@+id/id_task0"
             android:layout_column="3"
@@ -45,7 +65,13 @@
     <TableRow>
     <!-- 1 -->
     <TextView  android:id="@+id/lbl_task"   android:text="1"    android:layout_column="1"  />
-          <EditText android:id="@+id/txt_task1"  android:inputType="text"  android:width="400px" android:layout_column="2"    />
+
+        <EditText
+            android:id="@+id/txt_task1"
+            android:layout_column="2"
+            android:width="400px"
+            android:hint="1st Subtask"
+            android:inputType="text" />
         <CheckBox  android:layout_width="wrap_content"   android:layout_height="wrap_content" android:id="@+id/cb_task1"  android:layout_column="3" />
          <TextView   android:id="@+id/id_task1"    android:layout_column="3"   android:width="45px"  android:text="0" android:visibility="invisible" />
     </TableRow>
@@ -53,7 +79,13 @@
     <!-- 2 -->
     <TableRow>
         <TextView android:text="2"   android:layout_column="1" />
-        <EditText   android:id="@+id/txt_task2"  android:inputType="text"  android:width="400px" android:layout_column="2"  />
+
+        <EditText
+            android:id="@+id/txt_task2"
+            android:layout_column="2"
+            android:width="400px"
+            android:hint="2nd Subtask"
+            android:inputType="text" />
         <CheckBox  android:layout_width="wrap_content"   android:layout_height="wrap_content" android:id="@+id/cb_task2"   android:layout_column="3"  />
         <TextView android:visibility="invisible" android:id="@+id/id_task2"   android:layout_column="3"   android:width="45px"  />
     </TableRow>
@@ -61,7 +93,13 @@
     <!-- 3-->
     <TableRow>
         <TextView android:text="3"   android:layout_column="1" />
-         <EditText  android:id="@+id/txt_task3" android:inputType="text"   android:layout_column="2"  android:width="400px"  />
+
+        <EditText
+            android:id="@+id/txt_task3"
+            android:layout_column="2"
+            android:width="400px"
+            android:hint="3rd Subtask"
+            android:inputType="text" />
 
         <CheckBox   android:id="@+id/cb_task3"  android:layout_column="3"   />
         <TextView android:visibility="invisible" android:id="@+id/id_task3" />
@@ -71,7 +109,13 @@
     <!-- 4 -->
     <TableRow>
         <TextView android:text="4"   android:layout_column="1" />
-        <EditText android:id="@+id/txt_task4" android:inputType="text"   android:width="400px" android:layout_column="2"  />
+
+        <EditText
+            android:id="@+id/txt_task4"
+            android:layout_column="2"
+            android:width="400px"
+            android:hint="4th Subtask"
+            android:inputType="text" />
         <CheckBox android:width="20px"  android:id="@+id/cb_task4"  android:layout_column="3"   />
         <TextView android:visibility="invisible" android:id="@+id/id_task4" />
 
@@ -80,7 +124,13 @@
     <!-- 5 -->
     <TableRow>
         <TextView android:text="5"   android:layout_column="1" />
-        <EditText android:id="@+id/txt_task5" android:inputType="text"  android:width="400px" android:layout_column="2"  />
+
+        <EditText
+            android:id="@+id/txt_task5"
+            android:layout_column="2"
+            android:width="400px"
+            android:hint="5th Subtask"
+            android:inputType="text" />
 
         <CheckBox android:width="20px"  android:id="@+id/cb_task5" android:layout_column="3"/>
         <TextView android:visibility="invisible" android:id="@+id/id_task5" />

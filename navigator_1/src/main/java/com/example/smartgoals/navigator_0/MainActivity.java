@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
-
+import android.support.v4.app.Fragment;
 import com.example.smartgoals.navigator_0.db.TaskDBAdapter;
 import com.example.smartgoals.navigator_0.util.HelperUtil;
 
@@ -122,8 +122,8 @@ public class MainActivity extends AppCompatActivity {
             long CompletedSubtasks = SubtaskCountResults[1];
 
 
-            displayGoalProgressFragment();
-            displaySubtaskProgressFragment((int) CompletedSubtasks, (int) TotalSubtasks);
+            displayGoalProgressFragment(); //Calls Goal Progress Fragment Init Method
+            displaySubtaskProgressFragment((int) CompletedSubtasks, (int) TotalSubtasks); //Pass subtasks and completed to frag
 
         }
     }
@@ -196,60 +196,31 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
 
-        fragmentTransaction.add(R.id.Goal_Progress_Container,
-                goalProgressBarFragment).addToBackStack(null).commit();
+//        fragmentTransaction.add(R.id.Goal_Progress_Container,
+//                goalProgressBarFragment).addToBackStack(null).commit();
 
+        fragmentTransaction.add(R.id.Goal_Progress_Container,
+                goalProgressBarFragment, "GoalProgressFragmentTag").commit();
 // Set boolean flag to indicate fragment is open.
         isFragmentDisplayed = true;
     }
 
-    //TODO: Update these with actual subtasks
+
     public void displaySubtaskProgressFragment(int FinishedCount, int TotalCount) {
-        //Log.d("FinishedAgain",String.valueOf(TotalCount));
+
         SubtaskProgressBarFragment subtaskProgressBarFragment = SubtaskProgressBarFragment.newInstance(FinishedCount, TotalCount);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
+//        fragmentTransaction.add(R.id.Subtask_Progress_Container,
+//                subtaskProgressBarFragment).addToBackStack(null).commit(); This vsn w/addToBackStack results in fragment leaving with back button
         fragmentTransaction.add(R.id.Subtask_Progress_Container,
-                subtaskProgressBarFragment).addToBackStack(null).commit();
-
+                subtaskProgressBarFragment, "SubtaskFragmentTag").commit();
 // Set boolean flag to indicate fragment is open.
         isFragmentDisplayed = true;
     }
 
-    public void updateFragment() {
-        // Get the FragmentManager.
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        // Check to see if the fragment is already showing.
-        GoalProgressBarFragment simpleFragment = (GoalProgressBarFragment) fragmentManager
-                .findFragmentById(R.id.Goal_Progress_Container);
-        if (simpleFragment != null) {
-            // Create and commit the transaction to remove the fragment.
-            FragmentTransaction fragmentTransaction =
-                    fragmentManager.beginTransaction();
-            fragmentTransaction.remove(simpleFragment).commit();
-        }
 
-        // Set boolean flag to indicate fragment is closed.
-        isFragmentDisplayed = false;
-    }
-
-    public void closeFragment() {
-        // Get the FragmentManager.
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        // Check to see if the fragment is already showing.
-        GoalProgressBarFragment simpleFragment = (GoalProgressBarFragment) fragmentManager
-                .findFragmentById(R.id.Goal_Progress_Container);
-        if (simpleFragment != null) {
-            // Create and commit the transaction to remove the fragment.
-            FragmentTransaction fragmentTransaction =
-                    fragmentManager.beginTransaction();
-            fragmentTransaction.remove(simpleFragment).commit();
-        }
-
-        // Set boolean flag to indicate fragment is closed.
-        isFragmentDisplayed = false;
-    }
 
     public boolean isDataPresent() {
         boolean isDataPresent = false;
@@ -265,12 +236,61 @@ public class MainActivity extends AppCompatActivity {
         return isDataPresent;
     }
 
+//WHEN THE ACTIVITY RESUMES, RELOAD THE FRAGMENT WITH UPDATED DATA. DO NOT Allow back button to allow old data to be shown.
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        Log.d("InOnResume","OnResume");
+//        // Reload current fragment
+//        Fragment frg;
+//        frg = getSupportFragmentManager().findFragmentByTag("SubtaskFragmentTag");
+////        try{
+////            replaceFragment(getSupportFragmentManager().findFragmentByTag("SubtaskFragmentTag"));
+////        }catch (Error e){};
+//
+//
+//        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        ft.detach(frg);
+//        ft.attach(frg);
+//        ft.commit();
+//
+////        getSupportFragmentManager().addOnBackStackChangedListener(
+////
+////                new FragmentManager.OnBackStackChangedListener() {
+////                    @Override
+////                    public void onBackStackChanged() {
+////
+////                    }
+////                }
+////
+////
+////        );
+//
+//
+//    }
+
+
 
 //TODO: Hide fragments and frame layout if no current goal
     //SEE PAGE 83
 
 
     //TODO: Arrow with completion date (poll from the data entry screen)
+
+    //ONE WAY TO UPDATE THE FRAGMENTS ON THE HOME SCREEN SO THAT IF THE BACK BUTTON IS PRESSED, IT UPDATES.
+    /*
+     * Note this isn't the ideal method to do this.
+     *
+     *
+     * */
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        finish();
+        Log.d("InRestart", "Restart");
+        startActivity(getIntent());
+    }
 }
 
 

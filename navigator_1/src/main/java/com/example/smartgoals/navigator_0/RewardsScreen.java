@@ -68,7 +68,7 @@ public class RewardsScreen extends Activity implements View.OnClickListener  {
 
         // bottomNavigationView.getMenu().removeItem(R.id.update_goal_button);
         bottomNavigationView.getMenu().removeItem(R.id.rewards_button);
-        //bottomNavigationView.getMenu().removeItem(R.id.navigation_dashboard); //not on homescreen ui
+        bottomNavigationView.getMenu().removeItem(R.id.create_new_goal_button); //not on homescreen ui
 
         String destPath = "/data/data/" + getPackageName() +   "/databases";
         File f = new File(destPath);
